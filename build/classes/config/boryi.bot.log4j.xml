@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="BoryiBotXMLConfig">
+  <Properties>
+    <Property name="filename">/com/log/boryi/news.business.people.log</Property>
+  </Properties>
+  
+  <Appenders>
+    <File name="boryi.bot" fileName="${filename}">
+      <PatternLayout>
+        <Pattern>%d %p %C [%t] | %M | %L | %m %ex%n</Pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+ 
+  <Loggers>
+    <Logger name="boryi.bot.logger" level="warn" additivity="false">
+      <AppenderRef ref="boryi.bot"/>
+    </Logger>
+ 
+    <Root level="error">
+      <AppenderRef ref="boryi.bot"/>
+    </Root>
+  </Loggers>
+ 
+</Configuration>

@@ -1,0 +1,1 @@
+href\s*=\s*['"]?(?<value>[^<>'"]+-\d\d?.html)[^<]*<img[^<>]*next_page.jpg

@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://xml.boryi.com/schema/boryi.bot.conf"
+  xmlns:tns="http://xml.boryi.com/schema/boryi.bot.conf"
+  elementFormDefault="qualified">
+  <xsd:element name="settings">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="webUrl">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="4"/>
+              <xsd:maxLength value="256"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="posts" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="post" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="cookies" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="cookie" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="4096"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="httpUserAgent">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="256"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpAccept">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpAcceptLanguage">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpAcceptEncoding">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpAcceptCharset">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpConnection">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="Keep-Alive"/>
+              <xsd:enumeration value="close"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpKeepAlive">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpReferer">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpConnectionTimeout">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="1"/>
+              <xsd:maxInclusive value="3600"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpSocketTimeout">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="1"/>
+              <xsd:maxInclusive value="3600"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="httpReferDefaultStages" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="stage" maxOccurs="unbounded">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="0"/>
+                                <xsd:maxInclusive value="1000"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="httpReferCurrentStages" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="stage" maxOccurs="unbounded">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="0"/>
+                                <xsd:maxInclusive value="1000"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="dbCentralServerType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="MYSQL"/>
+              <xsd:enumeration value="POSTGRESQL"/>
+              <xsd:enumeration value="MSSQL"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbCentralServer">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="7"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbCentralServerPort">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="65535"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbCentralName">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="1"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbCentralUser">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbCentralPassword">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalServerType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="MYSQL"/>
+              <xsd:enumeration value="POSTGRESQL"/>
+              <xsd:enumeration value="MSSQL"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalServer">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="7"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalServerPort">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="65535"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalName">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="1"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalUser">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbLocalPassword">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxyPool" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="dbProxyServerType">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:enumeration value="MYSQL"/>
+                          <xsd:enumeration value="POSTGRESQL"/>
+                          <xsd:enumeration value="MSSQL"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="dbProxyServer">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="7"/>
+                          <xsd:maxLength value="128"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="dbProxyServerPort">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:integer">
+                          <xsd:minInclusive value="0"/>
+                          <xsd:maxInclusive value="65535"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="dbProxyName">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="1"/>
+                          <xsd:maxLength value="128"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="dbProxyUser">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="0"/>
+                          <xsd:maxLength value="128"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="dbProxyPassword">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                          <xsd:minLength value="0"/>
+                          <xsd:maxLength value="128"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="poolSize">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:integer">
+                          <xsd:minInclusive value="20"/>
+                          <xsd:maxInclusive value="20000"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="poolPeriod">
+                      <xsd:simpleType>
+                        <xsd:restriction base="xsd:integer">
+                          <xsd:minInclusive value="10000"/>
+                          <xsd:maxInclusive value="86400000"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="poolRestriction">
+<!--1: china; 2: outside china, normal site; 3: outside china, restrict site-->
+                        <xsd:simpleType>
+                        <xsd:restriction base="xsd:integer">
+                          <xsd:minInclusive value="1"/> 
+                          <xsd:maxInclusive value="3"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="poolType">
+<!--0: unknown; 1: transparent or above; 2: anonymous or above; 3: high anonymous or above-->
+                        <xsd:simpleType>
+                        <xsd:restriction base="xsd:integer">
+                          <xsd:minInclusive value="0"/> 
+                          <xsd:maxInclusive value="3"/>
+                        </xsd:restriction>
+                      </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="proxyScheme">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="http"/>
+              <xsd:enumeration value="https"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxyServer">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxyPort">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="65535"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxyUser">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxyPassword">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="proxySpecifiedStages" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="stage" maxOccurs="unbounded">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="0"/>
+                                <xsd:maxInclusive value="1000"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="proxyPoolStages" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="stage" maxOccurs="unbounded">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="0"/>
+                                <xsd:maxInclusive value="1000"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="maxPageHitsPerHour">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="360000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="maxKilobytesPerHour">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="3600000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webStatisticType">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="NONE"/>
+              <xsd:enumeration value="PAGEHITS"/>
+              <xsd:enumeration value="TRAFFIC"/>
+              <xsd:enumeration value="WEBSTATISTIC"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webRetry">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="100"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webRetryMethod">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="LINEAR"/>
+              <xsd:enumeration value="QUADRATIC"/>
+              <xsd:enumeration value="EXPONENTIAL"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webRetryBase">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="3600000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webRetryStep">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="3600000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbRetry">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="100"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbRetryMethod">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="LINEAR"/>
+              <xsd:enumeration value="QUADRATIC"/>
+              <xsd:enumeration value="EXPONENTIAL"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbRetryBase">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="3600000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="dbRetryStep">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="3600000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="checklistStrategy">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="MEMORY"/>
+              <xsd:enumeration value="DATABASE"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="checkedItemStrategy">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="KEEP"/>
+              <xsd:enumeration value="REMOVE"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="maxRunTime">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="0"/>
+              <xsd:maxInclusive value="8640000"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="webThreads">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="1"/>
+              <xsd:maxInclusive value="256"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="tempDir">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="regexDir">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailHost">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailPort">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:integer">
+              <xsd:minInclusive value="1"/>
+              <xsd:maxInclusive value="65536"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailTls">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:enumeration value="true"/>
+              <xsd:enumeration value="false"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailFrom">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailPassword">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailTo">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="mailSubject">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:minLength value="0"/>
+              <xsd:maxLength value="128"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:element>
+        <xsd:element name="regexes" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="regex" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value" maxOccurs="unbounded">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="centralProcedures" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="procedure" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="localProcedures" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="procedure" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="proxyProcedures" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="procedure" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="stagePriority" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="stage" maxOccurs="unbounded">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="0"/>
+                                <xsd:maxInclusive value="1000"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="params" minOccurs="0">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="param" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="name">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="128"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                                <xsd:element name="value">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:minLength value="1"/>
+                                          <xsd:maxLength value="1024"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

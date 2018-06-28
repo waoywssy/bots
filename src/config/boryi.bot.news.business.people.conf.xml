@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:settings  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns:ns1='http://xml.boryi.com/schema/boryi.bot.conf'
+   xsi:schemaLocation='http://xml.boryi.com/schema/boryi.bot.conf boryi.bot.news.business.sohu.conf.xsd'>
+        <ns1:webUrl>http://www.people.com.cn/</ns1:webUrl>
+        <ns1:httpUserAgent>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36</ns1:httpUserAgent>
+        <ns1:httpAccept>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</ns1:httpAccept>
+        <ns1:httpAcceptLanguage>en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7</ns1:httpAcceptLanguage>
+        <ns1:httpAcceptEncoding>gzip, deflate</ns1:httpAcceptEncoding>
+        <ns1:httpAcceptCharset>utf-8</ns1:httpAcceptCharset>
+        <ns1:httpConnection>close</ns1:httpConnection>
+        <ns1:httpKeepAlive>30</ns1:httpKeepAlive>
+        <ns1:httpReferer></ns1:httpReferer>
+        <ns1:httpConnectionTimeout>30</ns1:httpConnectionTimeout>
+        <ns1:httpSocketTimeout>30</ns1:httpSocketTimeout>
+        <ns1:httpReferDefaultStages><ns1:stage>0</ns1:stage></ns1:httpReferDefaultStages>
+        <ns1:httpReferCurrentStages><ns1:stage>1</ns1:stage><ns1:stage>2</ns1:stage></ns1:httpReferCurrentStages>
+        <ns1:dbCentralServerType>MYSQL</ns1:dbCentralServerType>
+        <ns1:dbCentralServer>localhost</ns1:dbCentralServer>
+        <ns1:dbCentralServerPort>3306</ns1:dbCentralServerPort>
+        <ns1:dbCentralName>people</ns1:dbCentralName>
+        <ns1:dbCentralUser>botmaster</ns1:dbCentralUser>
+        <ns1:dbCentralPassword>p@ssw0rd</ns1:dbCentralPassword>
+        <ns1:dbLocalServerType>MYSQL</ns1:dbLocalServerType>
+        <ns1:dbLocalServer>localhost</ns1:dbLocalServer>
+        <ns1:dbLocalServerPort>3306</ns1:dbLocalServerPort>
+        <ns1:dbLocalName>people</ns1:dbLocalName>
+        <ns1:dbLocalUser>botmaster_local</ns1:dbLocalUser>
+        <ns1:dbLocalPassword>p@ssw0rd</ns1:dbLocalPassword>
+        <ns1:proxyPool>
+            <ns1:dbProxyServerType>MYSQL</ns1:dbProxyServerType>
+            <ns1:dbProxyServer>localhost</ns1:dbProxyServer>
+            <ns1:dbProxyServerPort>3306</ns1:dbProxyServerPort>
+            <ns1:dbProxyName>people</ns1:dbProxyName>
+            <ns1:dbProxyUser>botuser_local</ns1:dbProxyUser>
+            <ns1:dbProxyPassword>pass#word1</ns1:dbProxyPassword>
+            <ns1:poolSize>100</ns1:poolSize>
+            <ns1:poolPeriod>120000</ns1:poolPeriod>
+            <ns1:poolRestriction>1</ns1:poolRestriction>
+            <ns1:poolType>2</ns1:poolType>
+        </ns1:proxyPool>
+        <ns1:proxyScheme>http</ns1:proxyScheme>
+        <ns1:proxyServer>127.0.0.1</ns1:proxyServer>
+        <ns1:proxyPort>8888</ns1:proxyPort>
+        <ns1:proxyUser></ns1:proxyUser>
+        <ns1:proxyPassword></ns1:proxyPassword>
+        
+        <ns1:maxPageHitsPerHour>0</ns1:maxPageHitsPerHour>
+        <ns1:maxKilobytesPerHour>0</ns1:maxKilobytesPerHour>
+        <ns1:webStatisticType>WEBSTATISTIC</ns1:webStatisticType>
+        <ns1:webRetry>5</ns1:webRetry>
+        <ns1:webRetryMethod>EXPONENTIAL</ns1:webRetryMethod>
+        <ns1:webRetryBase>1000</ns1:webRetryBase>
+        <ns1:webRetryStep>2000</ns1:webRetryStep>
+        <ns1:dbRetry>2</ns1:dbRetry>
+        <ns1:dbRetryMethod>EXPONENTIAL</ns1:dbRetryMethod>
+        <ns1:dbRetryBase>1000</ns1:dbRetryBase>
+        <ns1:dbRetryStep>2000</ns1:dbRetryStep>
+        <ns1:checklistStrategy>DATABASE</ns1:checklistStrategy>
+        <ns1:checkedItemStrategy>REMOVE</ns1:checkedItemStrategy>
+        <ns1:maxRunTime>86100</ns1:maxRunTime>
+        <ns1:webThreads>1</ns1:webThreads>
+        <ns1:tempDir>tmp/</ns1:tempDir>
+        <ns1:regexDir>regex/</ns1:regexDir>
+        <ns1:mailHost>smtp.exmail.qq.com</ns1:mailHost>
+        <ns1:mailPort>465</ns1:mailPort>
+        <ns1:mailTls>true</ns1:mailTls>
+        <ns1:mailFrom>qa.boryi@boryi.com</ns1:mailFrom>
+        <ns1:mailPassword>P@ssw0rd1</ns1:mailPassword>
+        <ns1:mailTo>qa.boryi@boryi.com</ns1:mailTo>
+        <ns1:mailSubject>Bot QA -</ns1:mailSubject>
+        <ns1:regexes>
+            <ns1:regex>
+                <ns1:name>0_get_url</ns1:name>
+                <ns1:value>0_get_url.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>2_get_item_url</ns1:name>
+                <ns1:value>2_get_item_url.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>2_get_all_page_no</ns1:name>
+                <ns1:value>2_get_all_page_no.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_title</ns1:name>
+                <ns1:value>3_get_news_title.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_published</ns1:name>
+                <ns1:value>3_get_news_published.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content</ns1:name>
+                <ns1:value>3_get_news_content.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_1</ns1:name>
+                <ns1:value>3_get_news_content_type_1.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_2</ns1:name>
+                <ns1:value>3_get_news_content_type_2.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_next_page_url</ns1:name>
+                <ns1:value>3_get_news_next_page_url.regex</ns1:value>
+            </ns1:regex>
+        </ns1:regexes>
+        <ns1:centralProcedures>
+            <ns1:procedure>
+                <ns1:name>insert_run</ns1:name>
+                <ns1:value>{call insert_run(?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>update_run</ns1:name>
+                <ns1:value>{call update_run(?,?,?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>get_task_status</ns1:name>
+                <ns1:value>{call get_task_status(?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>update_task_status</ns1:name>
+                <ns1:value>{call update_task_status(?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>insert_event</ns1:name>
+                <ns1:value>{call insert_event(?,?,?,?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+        </ns1:centralProcedures>
+        <ns1:localProcedures>
+            <ns1:procedure>
+                <ns1:name>get_resumed_run</ns1:name>
+                <ns1:value>{call get_resumed_run(?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>insert_bot_run</ns1:name>
+                <ns1:value>{call insert_bot_run(?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>insert_web_statistic</ns1:name>
+                <ns1:value>{call insert_web_statistic(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>save_pagesp</ns1:name>
+                <ns1:value>{call save_pagesp(?,?,?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+        </ns1:localProcedures>
+        <ns1:proxyProcedures>
+            <ns1:procedure>
+                <ns1:name>get_proxies</ns1:name>
+                <ns1:value>{call get_proxies(?,?,?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>mark_proxy</ns1:name>
+                <ns1:value>{call mark_proxy(?,?,?,?)}</ns1:value>
+            </ns1:procedure>
+        </ns1:proxyProcedures>
+        <ns1:stagePriority>
+            <ns1:stage>2</ns1:stage>
+            <ns1:stage>1</ns1:stage>
+            <ns1:stage>0</ns1:stage>
+        </ns1:stagePriority>
+        <ns1:params>
+            <ns1:param>
+                <ns1:name>content_charset</ns1:name>
+                <ns1:value>UTF-8</ns1:value>
+            </ns1:param>
+            <ns1:param>
+                <ns1:name>search_url</ns1:name>
+                <ns1:value>http://v2.sohu.com/public-api/feed?scene=CHANNEL&amp;sceneId=15&amp;page={pageindex}&amp;size=20&amp;callback=jQuery1124030876753325949213_1529548010118&amp;_=1529548010302</ns1:value>
+            </ns1:param>
+            <ns1:param>
+                <ns1:name>searched_timeout_days</ns1:name>
+                <ns1:value>0</ns1:value>
+            </ns1:param>
+            <ns1:param>
+                <ns1:name>searched_timeout_hours</ns1:name>
+                <ns1:value>8</ns1:value>
+            </ns1:param>
+            <ns1:param>
+                <ns1:name>searched_timeout_minutes</ns1:name>
+                <ns1:value>0</ns1:value>
+            </ns1:param>
+            <ns1:param>
+                <ns1:name>max_search_level</ns1:name>
+                <ns1:value>4</ns1:value>
+            </ns1:param>
+        </ns1:params>
+</ns1:settings>
