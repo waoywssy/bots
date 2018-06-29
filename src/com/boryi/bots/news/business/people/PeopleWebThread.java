@@ -213,6 +213,7 @@ public class PeopleWebThread extends BotWebThread
             url.contains("opinion.people.com.cn") ||
             url.contains("theory.people.com.cn") ||
             url.contains("ezheng.people.com.cn") ||
+            url.contains("pic.people.com.cn") ||
 
             url.contains("yi.people.com.cn") ||
             url.contains("arabic.people.com.cn") ||
@@ -291,6 +292,7 @@ public class PeopleWebThread extends BotWebThread
                         System.out.println("images news: " + item.getUrl().toString());
                     } else {
                         System.out.println("Unknown: " + item.getUrl().toString());
+                        ((PeopleDao) PeopleDao.getInstance()).saveUncheckedUrl(item.getUrl().toString() );
                     }
                 } else {
                     pcontent = Jsoup.clean(pcontent, Whitelist.none());
@@ -318,7 +320,10 @@ public class PeopleWebThread extends BotWebThread
                 );
                 
 //                System.out.println("Level :" + chk_level + " - Detail page: " + item.getUrl().toString());
+//                ((PeopleDao) PeopleDao.getInstance()).saveExcludedUrl(item.getUrl().toString() );
             } else {
+                // not detail page
+                ((PeopleDao) PeopleDao.getInstance()).saveNextUrl(item.getUrl().toString() );
 //                System.out.println("Level :" + chk_level + " - No detail page: " + item.getUrl().toString());
             }
         }

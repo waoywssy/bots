@@ -1,1 +1,1 @@
-<!--text\s*left-->(?<value>.+?)<!--left-banner-->
+<!--(text\s*left|正文)-->(?<value>.+?)<!--(left-banner|正文\s*end)-->

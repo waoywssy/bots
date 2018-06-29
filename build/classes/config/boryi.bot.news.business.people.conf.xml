@@ -146,6 +146,24 @@
                 <ns1:name>save_pagesp</ns1:name>
                 <ns1:value>{call save_pagesp(?,?,?,?,?,?)}</ns1:value>
             </ns1:procedure>
+            
+            <ns1:procedure>
+                <ns1:name>save_url_checked</ns1:name>
+                <ns1:value>{call save_url_checked(?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>save_url_excluded</ns1:name>
+                <ns1:value>{call save_url_excluded(?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>save_url_unchecked</ns1:name>
+                <ns1:value>{call save_url_unchecked(?)}</ns1:value>
+            </ns1:procedure>
+            <ns1:procedure>
+                <ns1:name>save_url_next</ns1:name>
+                <ns1:value>{call save_url_next(?)}</ns1:value>
+            </ns1:procedure>
+
         </ns1:localProcedures>
         <ns1:proxyProcedures>
             <ns1:procedure>
