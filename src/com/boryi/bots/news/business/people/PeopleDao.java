@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Bot database access object
@@ -202,25 +203,21 @@ public class PeopleDao extends BotDao
     }
     
     
-    
-    public final ArrayList<String> getUrls()
+    public final ConcurrentHashMap<String, Boolean> getUrls()
             throws ClassNotFoundException, InstantiationException, 
             IllegalAccessException, SQLException, InterruptedException
     {
-        ArrayList<String> urls = new ArrayList<>();
+        ConcurrentHashMap<String, Boolean> urls = new ConcurrentHashMap<>();
         int retry = 0;
         boolean failed = true;
         while (failed) // database connection failure, then retry
         {
-            try (CallableStatement cs = dbProxyConnection.prepareCall(
-                    BotConfig.getInstance().getProxyProcedures().get("get_proxies")))
+            try (CallableStatement cs = getLocalProcedure("get_urls"))
             {
 //                cs.setInt(1, BotConfig.getInstance().getProxyPoolRestriction());
                 try (ResultSet rs = cs.executeQuery()) {
                     while (rs.next()) {
-//                        urls.add(new BotProxyServerEntity(rs.getLong(1), 
-//                                rs.getString(4), rs.getString(2), rs.getInt(3),
-//                                rs.getString(5), rs.getString(6)));
+                        urls.put(rs.getString(1), false);
                     }
                     failed = false;
                 }

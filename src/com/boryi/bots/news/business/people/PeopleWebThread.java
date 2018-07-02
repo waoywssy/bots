@@ -117,7 +117,7 @@ public class PeopleWebThread extends BotWebThread
                     url = Util.trimString(pro_0_get_url.getProperty("value"));
                 }
                 if (url == null) {
-                    retry(true, BotEventSeverity.ERROR, "Broken news url");
+//                    retry(true, BotEventSeverity.ERROR, "Broken news url");
                 }
                 newslist.add(url);
             }
@@ -130,45 +130,21 @@ public class PeopleWebThread extends BotWebThread
         chk_id = item.getId();
         chk_parent_id = item.getParentId();
         chk_key = null;
+        chk_namevalues = new ArrayList<>();
         
         // to keep distinct urls in the current page
-        
         for (String detailUrl : newslist) {
-            chk_namevalues = new ArrayList<>();
-
-            // filter urls
-            chk_parent_key = detailUrl.trim();
-            if (chk_parent_key.contains("javascript:")) {
-//                System.out.println("js: " + chk_parent_key);
-                continue;
-            }
+            chk_parent_key = cleanUrl(detailUrl);
             
-            if (chk_parent_key.startsWith("&#9;")) {
-                chk_parent_key = chk_parent_key.replaceFirst("&#9;", "");
-            }
-            
-            if (chk_parent_key.startsWith("&#10;")) {
-                chk_parent_key = chk_parent_key.replaceFirst("&#10;", "");
-            }
-            
-            if (chk_parent_key.equals("http://www.people.com.cn/")){
-                continue;
-            }
-            
-            if (chk_parent_key.equals(item.getUrl().toString())){
+            if (!testValidUrl(chk_parent_key)){
                 continue;
             }
             
             String url;
             try {
                 url = item.getUrl().resolve(chk_parent_key).toString();
-                if (!url.contains("people.com.cn")) {
-//                    System.out.println("Other sites: " + url);
-                    continue;
-                }
                 
-                if (isInvalid(url)) {
-//                    System.out.println("Skip sub-domain: " + url);
+                if (isInvalidSubDomain(url)) {
                     continue;
                 }
             } catch (Exception ex) {
@@ -177,10 +153,16 @@ public class PeopleWebThread extends BotWebThread
             }
             
             // make sure each url only search once
-            if (Main.urls.containsKey(detailUrl)) {
+            if (Main.history_urls.containsKey(detailUrl)) {
+                // if the url has been searched during previous runs
+                continue;
+            }
+            
+            if (Main.current_run_searched_urls.containsKey(detailUrl)) {
+                // if the url hass been searched during this run
                 continue;
             } else {
-                Main.urls.put(detailUrl, true);
+                Main.current_run_searched_urls.put(detailUrl, true);
             }
             
             try {
@@ -195,11 +177,38 @@ public class PeopleWebThread extends BotWebThread
             }
         }
         
-        System.out.println("Matches: " + newslist.size() 
-                + "; Distincts: " + Main.urls.size());
+        System.out.println("Level " + chk_level + ": Matches: " + newslist.size() 
+                + "; Distincts: " + Main.current_run_searched_urls.size());
     }
 
-    private static boolean isInvalid(String url) {
+    private String cleanUrl(String detailUrl) {
+        // filter urls
+        String chk_parent_key = detailUrl.trim();
+        if (chk_parent_key.startsWith("&#9;")) {
+            chk_parent_key = chk_parent_key.replaceFirst("&#9;", "");
+        }
+        if (chk_parent_key.startsWith("&#10;")) {
+            chk_parent_key = chk_parent_key.replaceFirst("&#10;", "");
+        }
+        return chk_parent_key;
+    }
+
+    private Boolean testValidUrl(String url) {
+        if (url.contains("javascript:")) {
+            return false;
+        }
+        if (url.equals("http://www.people.com.cn/")){
+            // search no more than twice
+            return false;
+        }
+        if (!url.contains("people.com.cn")) {
+            // belongs to other sites
+            return false;
+        }
+        return !url.equals(item.getUrl().toString());
+    }
+
+    private static boolean isInvalidSubDomain(String url) {
         return url.contains("sns.people.com.cn") ||
             url.contains("blog.people.com.cn") ||
             url.contains("t.people.com.cn") ||
@@ -214,6 +223,8 @@ public class PeopleWebThread extends BotWebThread
             url.contains("theory.people.com.cn") ||
             url.contains("ezheng.people.com.cn") ||
             url.contains("pic.people.com.cn") ||
+            url.contains("liuyan.people.com.cn") ||
+            url.contains("comments.people.com.cn") ||
 
             url.contains("yi.people.com.cn") ||
             url.contains("arabic.people.com.cn") ||
@@ -222,7 +233,10 @@ public class PeopleWebThread extends BotWebThread
             url.contains("tibet.cpc.people.com.cn") ||
             url.contains("tibet.people.com.cn") ||
             url.contains("russian.people.com.cn") ||
+            url.contains("german.people.com.cn") ||
             url.contains("korean.people.com.cn") ||
+            url.contains("j.people.com.cn") ||
+            url.contains("kr.people.com.cn") ||
             url.contains("mongol.people.com.cn") ||
             url.contains("uyghur.people.com.cn") ||
             url.contains("kazakh.people.com.cn") ||
@@ -270,47 +284,24 @@ public class PeopleWebThread extends BotWebThread
         try {
             if (webData!= null && webData.contains("<meta name=\"contentid\"")) {
                 // This type of webcontent
-                // 
-                reg_date = Util.MatchSingleValue(webData, "3_get_news_published");
-                Date pfirstfound = Util.trimDate(reg_date, format_cn_date);
-
-                ptitle = Util.MatchSingleValue(webData, "3_get_news_title");
-                ptitle = StringEscapeUtils.unescapeHtml3(ptitle);
-
-                pcontent = Util.MatchSingleValue(webData, "3_get_news_content");
-
-                if (pcontent==null) {
-                    pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_1");
-                }
-                if (pcontent==null) {
-                    pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_2");
-                }
-
-                if (pcontent==null) {
-                    // images news
-                    if (ptitle.contains("图解")) {
-                        System.out.println("images news: " + item.getUrl().toString());
-                    } else {
-                        System.out.println("Unknown: " + item.getUrl().toString());
-                        ((PeopleDao) PeopleDao.getInstance()).saveUncheckedUrl(item.getUrl().toString() );
-                    }
-                } else {
-                    pcontent = Jsoup.clean(pcontent, Whitelist.none());
-                    pcontent = StringEscapeUtils.unescapeHtml3(pcontent);
-                    pcontent = pcontent.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "*");
-                    pcontent = pcontent.toLowerCase().trim();
-                }
-
-                if(pfirstfound == null) {
+                Date pfirstfound = Util.trimDate(
+                        Util.MatchSingleValue(webData, "3_get_news_published"), 
+                        format_cn_date);
+                if (pfirstfound == null) {
                     // 1970年-01月-01日 as default value incase there is none in the web page
                     try {
                         pfirstfound = (new SimpleDateFormat(format_cn_date)).parse("1970年1月1日");
-                    }
-                    catch(ParseException ex) { }
+                    } catch(ParseException ex) { }
                 }
+                
+                ptitle = StringEscapeUtils.unescapeHtml3(
+                            Util.MatchSingleValue(webData, "3_get_news_title"));
+                
+                pcontent = getPageContent(ptitle);
 
-                if (ptitle == null || pfirstfound == null) {
+                if (ptitle == null) {
     //                retry(true, BotEventSeverity.ERROR, "Table CompanyRandom");
+                    System.out.println("No title: " + item.getUrl().toString());
                     return;
                 }
 
@@ -336,6 +327,34 @@ public class PeopleWebThread extends BotWebThread
         if (chk_level < Integer.valueOf(BotConfig.getInstance().getParams().get("max_search_level"))){
             SearchUrls(1, chk_level);
         }
+    }
+
+    private String getPageContent(String ptitle) 
+            throws IllegalAccessException, NoSuchAlgorithmException, ClassNotFoundException, 
+            InstantiationException, UnsupportedEncodingException, SQLException, InterruptedException {
+        String pcontent;
+        pcontent = Util.MatchSingleValue(webData, "3_get_news_content");
+        if (pcontent==null) {
+            pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_1");
+        }
+        if (pcontent==null) {
+            pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_2");
+        }
+        if (pcontent==null) {
+            // images news
+            if (ptitle.contains("图解")) {
+                System.out.println("images news: " + item.getUrl().toString());
+            } else {
+                System.out.println("Unknown: " + item.getUrl().toString());
+                ((PeopleDao) PeopleDao.getInstance()).saveUncheckedUrl(item.getUrl().toString());
+            }
+        } else {
+            pcontent = Jsoup.clean(pcontent, Whitelist.none());
+            pcontent = StringEscapeUtils.unescapeHtml3(pcontent);
+            pcontent = pcontent.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "*");
+            pcontent = pcontent.toLowerCase().trim();
+        }
+        return pcontent;
     }
 
 }

@@ -18,7 +18,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Main 
 {
-    public static ConcurrentHashMap<String, Boolean> urls = new ConcurrentHashMap();
+    public static ConcurrentHashMap<String, Boolean> current_run_searched_urls = new ConcurrentHashMap();
+    public static ConcurrentHashMap<String, Boolean> history_urls = new ConcurrentHashMap();
+    
+    
     
     /**
      * @param args the command line arguments
@@ -86,6 +89,8 @@ public class Main
             BotConfig config = new BotConfig(configFile);
 
             PeopleDao dao = new PeopleDao();
+            
+            history_urls = dao.getUrls();
 
             BotCheckedItems checked = new BotCheckedItems(false, false);
             
