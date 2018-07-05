@@ -1,1 +1,1 @@
-(wbcpc_l_mainbody|p_content|box_pic|artDet)  (?<value>.+?) (jingbian2012|<!--guestbook|copyright-->|<!--about\s*news-->|more_new|ops_share|erCodePic|iframe)
+(wbcpc_l_mainbody|p_content|box_pic|artDet)[^>]*>\s*(?<value>.+?) (jingbian2012|<!--guestbook|copyright-->|<!--about\s*news-->|more_new|ops_share|erCodePic|iframe)

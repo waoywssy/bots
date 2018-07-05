@@ -232,6 +232,6 @@ public class PeopleDao extends BotDao
             }
         }
         closeProxyConnection();
-        return urls.isEmpty() ? null : urls;
+        return urls;
     }
 }

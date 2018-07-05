@@ -1,0 +1,1 @@
+artDet[^>]*>(?<value>.*?<div[^>]*editor[^<]*</div>)

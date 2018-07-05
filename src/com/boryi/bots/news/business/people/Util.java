@@ -26,8 +26,6 @@ import java.util.logging.Logger;
  */
 public class Util {
     
-    
-    
     public static String getDate(Date date) {
         if (date != null) {
             return (new SimpleDateFormat("yyyy年M月d日")).format(date);    

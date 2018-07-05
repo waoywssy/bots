@@ -103,6 +103,22 @@
                 <ns1:value>3_get_news_content_type_2.regex</ns1:value>
             </ns1:regex>
             <ns1:regex>
+                <ns1:name>3_get_news_content_type_3</ns1:name>
+                <ns1:value>3_get_news_content_type_3.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_4</ns1:name>
+                <ns1:value>3_get_news_content_type_4.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_5</ns1:name>
+                <ns1:value>3_get_news_content_type_5.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_6</ns1:name>
+                <ns1:value>3_get_news_content_type_6.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
                 <ns1:name>3_get_news_next_page_url</ns1:name>
                 <ns1:value>3_get_news_next_page_url.regex</ns1:value>
             </ns1:regex>
