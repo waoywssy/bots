@@ -41,6 +41,7 @@ public class PeopleWebThread extends BotWebThread
     
     private static long regextime = 0;
     private static long downloadhits = 0;
+    private static long detailhits = 0;
     
     
     private int maxLevel = 1;
@@ -58,16 +59,13 @@ public class PeopleWebThread extends BotWebThread
     public void parseWebData() throws InterruptedException
     {
         PeopleWebThread.downloadhits++;
+        System.out.println("Downloading " + item.getUrl().toString());
         
-        if (responseCharset == null)
-        {
-            try
-            {
+        if (responseCharset == null) {
+            try {
                 webData = new String(webData.getBytes(DEFAULT_RESPONSE_CHARSET), 
                         BotConfig.getInstance().getParams().get("content_charset"));
-            }
-            catch(UnsupportedEncodingException ex)
-            {
+            } catch(UnsupportedEncodingException ex) {
                 logEvent(BotEventSeverity.WARNING, "Unsupported encoding",
                         ex.toString());
             }
@@ -75,8 +73,7 @@ public class PeopleWebThread extends BotWebThread
 
         checklist = new ArrayList<>();
         
-        switch (item.getStage())
-        {
+        switch (item.getStage()) {
             case 0:
                 parseStage_0();
                 break;
@@ -84,26 +81,23 @@ public class PeopleWebThread extends BotWebThread
                 parseStage_1();
                 break;
         }
-
     }
 
 
     @Override
-    public void parseBinData() throws InterruptedException
-    {
-
+    public void parseBinData() throws InterruptedException {
     }
 
 
     @Override
-    public void saveData() throws InterruptedException { }
+    public void saveData() throws InterruptedException { 
+    }
 
 
     /**
      * Get home page, add list url
      */
-    private void parseStage_0() throws InterruptedException
-    {
+    private void parseStage_0() throws InterruptedException {
         // Search level one urls
         SearchUrls(1, 1);
     }
@@ -127,20 +121,28 @@ public class PeopleWebThread extends BotWebThread
                 if (pro_0_get_url != null) {
                     url = Util.trimString(pro_0_get_url.getProperty("value"));
                 }
-                if (url == null) {
-//                    retry(true, BotEventSeverity.ERROR, "Broken news url");
-                } else if (url.contains("/c349136-") || // leaders of bj
-                            url.contains("/2016/") || // news of 2016
-                            url.contains("/2017/") // news of 2017
-                        )
-                {
-//                    System.out.println("Ignore url: " + url);
-                    continue;
+                
+                if (url != null) {
+                    if (url.contains("/c349136-")) {
+                        // leaders of bj
+                        continue;
+                    } else if (isInvalidSubDomain(url)) {
+                        continue;
+                    } else {
+                        // Skip outdated news 
+                        String date_in_url = Util.MatchSingleValue(url, "0_get_url_date");
+                        if (date_in_url != null) {
+                            if (Integer.parseInt(date_in_url.replace("/", "")) < 20180615){
+                                continue;
+                            }
+                        }
+                    }
+                    newslist.add(url);
                 }
-                newslist.add(url);
             }
-        }catch (Exception ex){
-            this.retry(true, BotEventSeverity.ERROR, "Failed parsing urls: " + ex.toString());
+        }catch (Exception ex) {
+            System.out.println("Failed parsing urls: " + ex.toString());
+            //this.retry(true, BotEventSeverity.ERROR, "Failed parsing urls: " + ex.toString());
         }
         // deal with the news links
         chk_cookies = null;
@@ -161,10 +163,6 @@ public class PeopleWebThread extends BotWebThread
 //            }
             try {
                 chk_parent_key = item.getUrl().resolve(chk_parent_key).toString();
-                
-                if (isInvalidSubDomain(chk_parent_key)) {
-                    continue;
-                }
             } catch (Exception ex) {
                 System.out.println("Error resolving: " + chk_parent_key + " for " + ex.toString() + item.getUrl().toString());
                 continue;
@@ -190,13 +188,14 @@ public class PeopleWebThread extends BotWebThread
                         chk_page, chk_id, chk_parent_id, chk_key, chk_parent_key, 0));
             } catch (Exception ex) {
                 System.out.println("Exception: " + detailUrl);
-                this.retry(true, BotEventSeverity.ERROR, "Illegal character; " 
-                        + item.getUrl().resolve(detailUrl) + ex.toString());
             }
         }
         
-//        System.out.println("Level " + chk_level + ": Matches: " + newslist.size() 
-//                + "; Distincts: " + Main.current_run_searched_urls.size());
+        System.out.println("Level " + chk_level + ": Matches: " + newslist.size() 
+                + "; Distincts: " + Main.current_run_searched_urls.size()
+                + "; Details: " + PeopleWebThread.detailhits
+                + "; TotalDownloads: " + PeopleWebThread.downloadhits
+        );
     }
 
     private String cleanUrl(String detailUrl) {
@@ -247,9 +246,22 @@ public class PeopleWebThread extends BotWebThread
     private static boolean isInvalidSubDomain(String url) {
         return url.contains("/sns.people.com.cn") ||
             url.contains("/n/") ||
+            url.contains("/GB/") ||
+            url.contains("/forum.php?") ||
+            url.contains("/ldzl.people.com.cn") ||
+            url.contains("/gonggao.people.com.cn") ||
+            url.contains("/health.people.com.cn/zyztc/") ||
+            url.contains("/www.people.com.cn/img/") ||
+            url.contains("/qzlx.people.com.cn") ||
+            url.contains("/315.auto.people.com.cn") ||
+            url.contains("/voting.people.com.cn") ||
             url.contains("/blog.people.com.cn") ||
+            url.contains("/mblog.people.com.cn") ||
+            url.contains("/vblog.people.com.cn") ||
+            url.contains("/sso.people.com.cn") ||
             url.contains("/t.people.com.cn") ||
             url.contains("/bbs1.people.com.cn") ||
+            url.contains("/71bbs.people.com.cn") ||
             url.contains("/wza.people.com.cn") ||
             url.contains("/history.people.com.cn") ||
             url.contains("/tv.people.com.cn") ||
@@ -271,7 +283,7 @@ public class PeopleWebThread extends BotWebThread
             url.contains("/tibet.people.com.cn") ||
             url.contains("/russian.people.com.cn") ||
             url.contains("/german.people.com.cn") ||
-                
+            url.contains("/english.people.com.cn") ||
             url.contains("/korean.people.com.cn") ||
             url.contains("/j.people.com.cn") ||
             url.contains("/kr.people.com.cn") ||
@@ -283,6 +295,7 @@ public class PeopleWebThread extends BotWebThread
             url.contains("/french.people.com.cn") ||
             url.contains("/sawcuengh.people.com.cn") ||
             url.contains("/sns.people.com.cn") ||
+            url.contains("/clickc.admaster.com.cn") ||
             url.toUpperCase().contains("/BIG5/");
     }
     
@@ -315,6 +328,17 @@ public class PeopleWebThread extends BotWebThread
         
         try {
             if (webData.contains("<meta name=\"contentid\"")) {
+                
+                if (webData.contains("pvpShowDiv")) {
+                    System.out.println("Supposed to be a video page " + item.getUrl().toString());
+                    return;
+                }
+                
+                PeopleWebThread.detailhits++;
+                
+                // new date type 
+                // http://mcq.people.com.cn/news/201873/2018731528584540998.htm
+
                 // detail page
                 Date pfirstfound = Util.trimDate(
                         Util.MatchSingleValue(webData, "3_get_news_published"), 
@@ -368,7 +392,7 @@ public class PeopleWebThread extends BotWebThread
         
         if (pcontent==null) {
             // images news
-            if (ptitle.contains("图解")) {
+            if (ptitle.contains("图解")||ptitle.contains("图说")) {
                 System.out.println("images news: " + item.getUrl().toString());
             } else {
                 System.out.println("Unknown: " + item.getUrl().toString());
@@ -378,6 +402,7 @@ public class PeopleWebThread extends BotWebThread
             pcontent = Jsoup.clean(pcontent, Whitelist.none());
             pcontent = StringEscapeUtils.unescapeHtml3(pcontent);
             pcontent = pcontent.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "*");
+            pcontent = pcontent.replace("&nbsp;", " ");
             pcontent = pcontent.replace("　", " ");
 //            pcontent = pcontent.replaceAll("　", " ");
 //            pcontent = pcontent.replaceAll(" ", " ");
@@ -387,12 +412,8 @@ public class PeopleWebThread extends BotWebThread
     }
 
     private String getNewsContentByRegex() {
-        
-        
         long start = System.currentTimeMillis();
-        
         int regex_matched_by = 0;
-        
         String pcontent = Util.MatchSingleValue(webData, "3_get_news_content");
         
         if (pcontent==null) {
@@ -417,6 +438,18 @@ public class PeopleWebThread extends BotWebThread
         }
         if (pcontent==null) {
             pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_6");
+            regex_matched_by++;
+        }
+        if (pcontent==null) {
+            pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_7");
+            regex_matched_by++;
+        }
+        if (pcontent==null) {
+            pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_8");
+            regex_matched_by++;
+        }
+        if (pcontent==null) {
+            pcontent = Util.MatchSingleValue(webData, "3_get_news_content_type_9");
             regex_matched_by++;
         }
 

@@ -75,6 +75,10 @@
                 <ns1:value>0_get_url.regex</ns1:value>
             </ns1:regex>
             <ns1:regex>
+                <ns1:name>0_get_url_date</ns1:name>
+                <ns1:value>0_get_url_date.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
                 <ns1:name>2_get_item_url</ns1:name>
                 <ns1:value>2_get_item_url.regex</ns1:value>
             </ns1:regex>
@@ -117,6 +121,18 @@
             <ns1:regex>
                 <ns1:name>3_get_news_content_type_6</ns1:name>
                 <ns1:value>3_get_news_content_type_6.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_7</ns1:name>
+                <ns1:value>3_get_news_content_type_7.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_8</ns1:name>
+                <ns1:value>3_get_news_content_type_8.regex</ns1:value>
+            </ns1:regex>
+            <ns1:regex>
+                <ns1:name>3_get_news_content_type_9</ns1:name>
+                <ns1:value>3_get_news_content_type_9.regex</ns1:value>
             </ns1:regex>
             <ns1:regex>
                 <ns1:name>3_get_news_next_page_url</ns1:name>
